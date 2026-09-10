@@ -31,17 +31,8 @@ sudo apt update
 sudo apt install -y git curl
 
 # Install Hide Top Bar dependencies
-sudo apt update
-sudo apt install -y git gettext make
-# Install Hide Top Bar extension
-EXT_DIR="$HOME/.local/share/gnome-shell/extensions/hidetopbar@mathieu.bidon.ca"
-rm -rf "$EXT_DIR"
-git clone https://github.com/mlutfy/hide-top-bar.git "$EXT_DIR"
-cd "$EXT_DIR"
-make
-
 # Enable extension
-gnome-extensions enable hidetopbar@mathieu.bidon.ca || true
+#gnome-extensions enable hidetopbar@mathieu.bidon.ca || true
 
 # Dark theme
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
