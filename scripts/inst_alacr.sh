@@ -12,6 +12,10 @@ sudo apt autoremove -y
 # Remove old config
 rm -rf "$HOME/.config/alacritty"
 
+# === ИСПРАВЛЕНИЕ: Добавляем PPA-репозиторий для Ubuntu 22.04 ===
+echo "Adding Alacritty PPA..."
+sudo add-apt-repository -y ppa:aslatter/ppa
+
 # Install
 sudo apt update
 sudo apt install -y alacritty
