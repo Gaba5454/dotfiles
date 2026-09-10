@@ -1,0 +1,43 @@
+[general]
+live_config_reload = true
+
+[window]
+decorations = "None"
+padding = { x = 5, y = 4 }
+dynamic_padding = true
+opacity = 1.0
+
+[colors.primary]
+background = "#000000"
+foreground = "#ffffff"
+
+[colors.cursor]
+text = "#000000"
+cursor = "#ffffff"
+
+[colors.selection]
+text = "#ffffff"
+background = "#3a3a3a"
+
+[colors.normal]
+black   = "#000000"
+red     = "#d64545"
+green   = "#69a86b"
+yellow  = "#d89b45"
+blue    = "#5f87b2"
+magenta = "#9a6aa6"
+cyan    = "#5fa6a6"
+white   = "#ffffff"
+
+[colors.bright]
+black   = "#555555"
+red     = "#ff5c5c"
+green   = "#82c885"
+yellow  = "#f0b35a"
+blue    = "#79a7d3"
+magenta = "#b982c4"
+cyan    = "#7fc7c7"
+white   = "#ffffff"
+
+[terminal]
+shell = { program = "tmux", args = ["new-session", "-A", "-s", "main"] }
