@@ -38,7 +38,8 @@ sudo apt install -y git curl
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 
 # Accent color
-gsettings set org.gnome.desktop.interface accent-color 'green'
+gsettings set org.gnome.desktop.interface gtk-theme 'Yaru-green-dark'
+gsettings set org.gnome.desktop.interface icon-theme 'Yaru-green'
 
 # Hide desktop icons
 gsettings set org.gnome.shell.extensions.desktop-icons show-home false
