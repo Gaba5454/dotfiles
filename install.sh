@@ -42,9 +42,9 @@ gsettings set org.gnome.desktop.interface gtk-theme 'Yaru-green-dark'
 gsettings set org.gnome.desktop.interface icon-theme 'Yaru-green'
 
 # Hide desktop icons
-gsettings set org.gnome.shell.extensions.desktop-icons show-home false
-gsettings set org.gnome.shell.extensions.desktop-icons show-trash false
-gsettings set org.gnome.shell.extensions.desktop-icons show-volumes false
+gsettings set org.gnome.shell.extensions.ding show-home false
+gsettings set org.gnome.shell.extensions.ding show-trash false
+gsettings set org.gnome.shell.extensions.ding show-volumes false
 
 # Make scripts executable
 chmod +x "$DOTFILES_DIR/scripts/inst_alacr.sh"
