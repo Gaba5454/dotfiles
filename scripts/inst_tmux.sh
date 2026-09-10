@@ -1,26 +1,36 @@
 #!/bin/bash
+set -e
 
-cd "$(dirname "$0")"
+DOTFILES_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 
 echo "Install tmux"
 
-# Delete old version 
-sudo apt purge -y tmux
+# Remove old version
+sudo apt purge -y tmux || true
 sudo apt autoremove -y
 
-# Delete old config
-rm -rf ~/.tmux
-rm -f ~/.tmux.conf
+# Remove old config and plugins
+rm -rf "$HOME/.tmux"
+rm -f "$HOME/.tmux.conf"
 
-# Clean install
+# Install required packages
 sudo apt update
-sudo apt install -y tmux
+sudo apt install -y tmux git
 
-if [ -f "../config/tmux.conf" ]; then
-    cp "../config/tmux.conf" ~/.tmux.conf
-    echo "Config done"
-else
-    echo "Error"
-fi
+# Copy config
+cp "$DOTFILES_DIR/config/tmux.conf" "$HOME/.tmux.conf"
 
+# Install TPM
+echo "Installing TPM..."
+
+git clone https://github.com/tmux-plugins/tpm \
+    "$HOME/.tmux/plugins/tpm"
+
+# Install tmux plugins
+echo "Installing tmux plugins..."
+
+"$HOME/.tmux/plugins/tpm/bin/install_plugins"
+
+echo "tmux plugins installed"
+echo "tmux config done"
 echo "tmux done"

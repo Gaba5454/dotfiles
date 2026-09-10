@@ -1,24 +1,27 @@
 #!/bin/bash
+set -e
 
-cd "$(dirname "$0")"
+DOTFILES_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 
 echo "Reinstall Alacritty"
 
-# Delete old version
-sudo apt purge -y alacritty
+# Remove old version
+sudo apt purge -y alacritty || true
 sudo apt autoremove -y
 
-# Delete old config
-rm -rf ~/.config/alacritty
+# Remove old config
+rm -rf "$HOME/.config/alacritty"
 
-# Clean install
+# Install
 sudo apt update
 sudo apt install -y alacritty
 
-if [ -f "../config/alacritty.toml" ]; then
-    cp "../config/alacritty.toml" ~/.config/alacritty/alacritty.toml
-    echo "Config done"
-else
-    echo "Error"
-fi
+# Create config directory
+mkdir -p "$HOME/.config/alacritty"
+
+# Copy config
+cp "$DOTFILES_DIR/config/alacritty.toml" \
+   "$HOME/.config/alacritty/alacritty.toml"
+
+echo "Alacritty config done"
 echo "Alacritty done"

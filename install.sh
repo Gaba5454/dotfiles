@@ -1,46 +1,72 @@
-#!/bin/sh
+#!/bin/bash
+set -e
+
+DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+echo "================================"
+echo "     Installing dotfiles"
+echo "================================"
 
 # Disable dock
-gnome-extensions disable ubuntu-dock@ubuntu.com
+gnome-extensions disable ubuntu-dock@ubuntu.com || true
 
-# Enbable hotkeys
+# Enable hotkeys
 gsettings set org.gnome.settings-daemon.plugins.media-keys home "['<Super>e']"
 gsettings set org.gnome.settings-daemon.plugins.media-keys control-center "['<Super>i']"
 
-# Remake hotkeys for input change
+# Input language hotkeys
 gsettings set org.gnome.desktop.input-sources xkb-options "[]"
 gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Alt>Shift_L', '<Shift>Alt_L']"
 gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Alt>Shift_L', '<Shift>Alt_L']"
 
-# Change delay (500)
+# Keyboard delay
 gsettings set org.gnome.desktop.peripherals.keyboard delay 180
-# Change repeat interval (50)
+
+# Keyboard repeat interval
 gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 20
 
-# Install hide top bar extension
+# Install packages required by the setup
+echo "Installing system packages..."
 sudo apt update
+sudo apt install -y git curl
+
+# Install hide top bar extension
 sudo apt install -y gnome-shell-extension-autohidetopbar
 
 # Enable extension
-gnome-extensions enable hidetopbar@mathieu.bidon.ca
+gnome-extensions enable hidetopbar@mathieu.bidon.ca || true
 
-# System color scheme
+# Dark theme
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 
-# System assent color
+# Accent color
 gsettings set org.gnome.desktop.interface accent-color 'green'
 
-# Hide all icons on home screen
+# Hide desktop icons
 gsettings set org.gnome.shell.extensions.desktop-icons show-home false
 gsettings set org.gnome.shell.extensions.desktop-icons show-trash false
 gsettings set org.gnome.shell.extensions.desktop-icons show-volumes false
 
-cd "$(dirname "$0")"
+# Make scripts executable
+chmod +x "$DOTFILES_DIR/scripts/inst_alacr.sh"
+chmod +x "$DOTFILES_DIR/scripts/inst_tmux.sh"
 
-chmod +x scripts/inst_alacr.sh
-chmod +x scripts/inst_tmux.sh
+# Install Alacritty
+echo ""
+echo "================================"
+echo "     Installing Alacritty"
+echo "================================"
+bash "$DOTFILES_DIR/scripts/inst_alacr.sh"
 
-./scripts/inst_alacr.sh
-./scripts/inst_tmux.sh
+# Install tmux
+echo ""
+echo "================================"
+echo "        Installing tmux"
+echo "================================"
+bash "$DOTFILES_DIR/scripts/inst_tmux.sh"
 
+echo ""
+echo "================================"
+echo "       Installation complete"
+echo "================================"
 echo "Tip Top"
